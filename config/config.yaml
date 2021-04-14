@@ -1,0 +1,17 @@
+host: "https://v4.ketangpai.com/"
+
+student_info:
+  usr: "kt200323chloe@icloud.com"
+  pwd: "admin123"
+
+teacher_info:
+  usr: "leekchlo@icloud.com"
+  pwd: "admin123"
+
+class_info:
+  class_num: "SD3SJH"
+
+log_conf:
+  name: "python_automation"
+  level: "INFO"
+  formatter: "time:%(asctime)s--%(levelname)s:%(name)s:%(message)s--%(filename)s---%(lineno)s"
