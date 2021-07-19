@@ -91,7 +91,7 @@ class BasePage:
 
     def mouse_hold_on(self,locator:tuple):
         ele = self.wait_element_visible(locator)
-        ActionChains(self.driver).move_to_element(ele)
+        ActionChains(self.driver).move_to_element(ele).perform()
         return self
 
     def get_element_attribute(self, locator: tuple, attr):
@@ -121,9 +121,11 @@ class BasePage:
 
 if __name__ == "__main__":
     driver = webdriver.Chrome()
+
     bp = BasePage(driver)
-    bp.goto("http://www.baidu.com")
-    bp.wait_element_visible(('id','suufefwe'))
+    bp.goto("http://www.12306.cn")
+    driver.maximize_window()
+    bp.scroll_and_click(('xpath','//a[contains(text(),"常见问题")]'))
     import time
     time.sleep(12)
     driver.quit()
