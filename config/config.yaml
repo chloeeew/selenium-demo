@@ -8,10 +8,11 @@ teacher_info:
   usr: "leekchlo@icloud.com"
   pwd: "admin123"
 
+
 class_info:
   class_num: "SD3SJH"
 
 log_conf:
-  name: "python_automation"
+  name: "automation_ketangpai_test"
   level: "INFO"
   formatter: "time:%(asctime)s--%(levelname)s:%(name)s:%(message)s--%(filename)s---%(lineno)s"

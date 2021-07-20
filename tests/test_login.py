@@ -12,13 +12,15 @@ Contact:403505960@qq.com
 4、用户名不存在
 5、密码长度不正确(5位和31位)
 """
-
+import time
+import pytest
+import allure
 from pages.login import LoginPage
 from pages.index import IndexPage
 from pages.home import HomePage
 from data import login
-import pytest
-import allure
+from common.logger_handler import logger
+
 
 @allure.feature("登录测试")
 class TestLogin:
@@ -41,13 +43,22 @@ class TestLogin:
         index_page.click_into_login()  # CLICK TO-LOGIN BUTTON
 
         # CREATE LOGIN PAGE OBJECT
+        time.sleep(2)
         login_page = LoginPage(driver)
+
         # CHAINED CALL，SET USERNAME AND PASSWORD, THEN CLICK CONFIRM
         login_page.set_usr_and_password(username, pwd).click_login_confirm()
 
+        # create homepage object
+        time.sleep(2)
+        home_page = HomePage(driver)
+
         # COMPARE
-        actual = HomePage(driver).get_usr_name()
+        actual = home_page.get_usr_name()
+        logger.info(f"实际结果为：{actual},预期结果为{expected}")
         assert actual == expected
+
+
 
     @allure.title("异常登录测试用例")
     @pytest.mark.parametrize("username,pwd,expected", login.data_list_wrong)

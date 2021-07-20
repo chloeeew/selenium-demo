@@ -46,7 +46,7 @@ class MyLogger(Logger):
 
 logger = MyLogger()
 
-#
-# if __name__ == "__main__":
-#     logger.info("22")
+
+if __name__ == "__main__":
+    logger.info("22")
 

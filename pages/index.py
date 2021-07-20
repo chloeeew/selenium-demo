@@ -40,3 +40,6 @@ class IndexPage(BasePage):
         """
         self.click_element(self.locator_login_button)
         return self
+
+
+

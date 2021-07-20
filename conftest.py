@@ -11,11 +11,12 @@ from common.yaml_handler import yaml_config
 import time
 import pytest
 
-student_info = yaml_config["student_info"]
-teacher_info = yaml_config["teacher_info"]
 
 @pytest.fixture()
 def get_driver():
+    """
+    打开网页
+    """
     driver = webdriver.Chrome()
     driver.implicitly_wait(10)
     driver.maximize_window()
@@ -25,24 +26,32 @@ def get_driver():
 
 
 @pytest.fixture()
-def login_teacher():
-    driver = webdriver.Chrome()
-    driver.implicitly_wait(10)
-    driver.maximize_window()
-    login_page = LoginPage(driver).get_into_login_url()
-    login_page.set_usr_and_password(teacher_info["usr"], teacher_info["pwd"]).click_login_confirm()
-    yield driver
-    time.sleep(3)
-    driver.quit()
+def login_teacher(get_driver):
+    """
+    登录老师账号
+    """
+    login_page = LoginPage(get_driver).get_into_login_url()
+    login_page.set_usr_and_password(yaml_config["teacher_info"]["usr"], yaml_config["teacher_info"]["pwd"]).\
+        click_login_confirm()
+    time.sleep(2)
+    yield get_driver
+
 
 
 @pytest.fixture()
 def login_student():
+    """
+    登录学生账号
+    """
     driver = webdriver.Chrome()
     driver.implicitly_wait(10)
     driver.maximize_window()
     login_page = LoginPage(driver).get_into_login_url()
-    login_page.set_usr_and_password(student_info['usr'], student_info['pwd']).click_login_confirm()
+    login_page.set_usr_and_password(yaml_config["student_info"]['usr'], yaml_config["student_info"]['pwd']).\
+        click_login_confirm()
+    time.sleep(2)
     yield driver
     time.sleep(3)
     driver.quit()
+
+

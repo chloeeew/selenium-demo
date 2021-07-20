@@ -7,8 +7,10 @@ Contact:403505960@qq.com
 """
 
 from selenium.webdriver.common.by import By
+from selenium import webdriver
 from common.basepage import BasePage
 from common import yaml_handler
+from common.logger_handler import logger
 
 
 host_url = yaml_handler.yaml_config["host"]
@@ -41,7 +43,9 @@ class LoginPage(BasePage):
         默认用户名和密码输入的是空
         """
         self.send_text(self.locator_username_field, usr)
+        logger.info(f"元素{self.locator_username_field}中，输入用户名：{usr}")
         self.send_text(self.locator_pwd_field, pwd)
+        logger.info(f"元素{self.locator_pwd_field}中输入密码：{pwd}")
         return self
 
     def click_login_confirm(self):
@@ -49,6 +53,7 @@ class LoginPage(BasePage):
         """
         # 登录按钮
         self.click_element(self.locator_login_confirm_button)
+        logger.info(f"点击元素{self.locator_login_confirm_button}")
         return self
 
     def get_error_tips(self):
@@ -57,3 +62,17 @@ class LoginPage(BasePage):
         """
         error_tips_list = self.driver.find_elements(*self.locator_error_tips)
         return error_tips_list
+
+
+
+if __name__ == "__main__":
+    driver = webdriver.Chrome()
+
+    bp = LoginPage(driver)
+    bp.goto("https://v4.ketangpai.com/User/login.html")
+    driver.maximize_window()
+    bp.set_usr_and_password("looker53@sina.com","admin123456")
+    bp.click_login_confirm()
+    import time
+    time.sleep(12)
+    driver.quit()
