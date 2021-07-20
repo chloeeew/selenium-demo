@@ -104,11 +104,9 @@ class BasePage:
     def send_text(self, locator: tuple, content):
         """向元素输入文字"""
         try:
-            wait = WebDriverWait(self.driver, 10, poll_frequency=0.2)
+            wait = WebDriverWait(self.driver, 10, poll_frequency=1)
             el_account = wait.until(expected_conditions.visibility_of_element_located(locator))
-            # el_account = self.driver.find_element(*locator)
             logger.info(f"找定位指定元素：{locator}")
-        # except NoSuchElementException as e:
         except TimeoutException as e:
             logger.error(f"找不到该元素，请检查定位{locator}是否能正确定位：{e}")
         else:

@@ -21,3 +21,11 @@ def read_yaml(fpath):
 
 # 获取yaml配置项
 yaml_config = read_yaml(path.config_yaml_path)
+
+# 获取用例yaml
+yaml_testcase = read_yaml(path.testcase_yaml_path)
+
+
+
+if __name__ == '__main__':
+    print(yaml_testcase.get('data_list_success'))

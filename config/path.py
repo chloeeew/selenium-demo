@@ -22,6 +22,9 @@ data_dir = os.path.join(top_dir,"data")
 if not os.path.exists(data_dir):
     os.mkdir(data_dir)
 
+# testcase.yaml 文件
+testcase_yaml_path = os.path.join(data_dir,"testcase.yaml")
+
 # config.yaml文件
 config_yaml_path = os.path.join(config_dir,"config.yaml")
 

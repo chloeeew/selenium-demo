@@ -18,16 +18,15 @@ import allure
 from pages.login import LoginPage
 from pages.index import IndexPage
 from pages.home import HomePage
-from data import login
 from common.logger_handler import logger
-
+from common.yaml_handler import yaml_testcase
 
 @allure.feature("登录测试")
 class TestLogin:
 
     @allure.title("冒烟测试-登录成功")
-    @pytest.mark.parametrize("username,pwd,expected", login.data_list_success)
-    def test_login_success(self, get_driver, username, pwd, expected):
+    @pytest.mark.parametrize("yaml_data", yaml_testcase.get('data_list_success'))
+    def test_login_success(self, yaml_data,get_driver):
         """测试登录成功的场景（冒烟）
         1、打开浏览器
         2、进入登录也页面
@@ -47,7 +46,7 @@ class TestLogin:
         login_page = LoginPage(driver)
 
         # CHAINED CALL，SET USERNAME AND PASSWORD, THEN CLICK CONFIRM
-        login_page.set_usr_and_password(username, pwd).click_login_confirm()
+        login_page.set_usr_and_password(yaml_data.get('usr'), yaml_data.get('pwd')).click_login_confirm()
 
         # create homepage object
         time.sleep(2)
@@ -55,14 +54,14 @@ class TestLogin:
 
         # COMPARE
         actual = home_page.get_usr_name()
-        logger.info(f"实际结果为：{actual},预期结果为{expected}")
-        assert actual == expected
+        logger.info(f"实际结果为：{actual},预期结果为{yaml_data['expected']}")
+        assert actual == yaml_data['expected']
 
 
 
     @allure.title("异常登录测试用例")
-    @pytest.mark.parametrize("username,pwd,expected", login.data_list_wrong)
-    def test_login_usr_empty(self, get_driver, username, pwd, expected):
+    @pytest.mark.parametrize("yaml_data", yaml_testcase.get('data_list_wrong'))
+    def test_login_usr_empty(self, get_driver, yaml_data):
         """测试用户名为空
         1、访问登录页面
         2、输入值
@@ -72,12 +71,12 @@ class TestLogin:
 
         # CALL ON LOGIN PAGE DIRECTLY，SKIP THE INDEX-PAGE PROCESS
         login_page = LoginPage(driver).get_into_login_url()
-        login_page.set_usr_and_password(username, pwd).click_login_confirm()
+        login_page.set_usr_and_password(yaml_data.get('usr'), yaml_data.get('pwd')).click_login_confirm()
 
         # COMPARE
         actual = login_page.get_error_tips()
         for i, el in enumerate(actual):
-            assert el.text == expected[i]
+            assert el.text == yaml_data.get('expected')[i]
 
 
 

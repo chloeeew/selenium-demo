@@ -6,8 +6,6 @@ Contact:403505960@qq.com
 ==================
 """
 
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from common.basepage import BasePage
 from common.logger_handler import logger
@@ -26,8 +24,6 @@ class HomePage(BasePage):
         """获取登录的名称
         """
         # 登录后等待头像的出现
-        # wait = WebDriverWait(self.driver, timeout=10, poll_frequency=0.2)
-        # wait.until(expected_conditions.visibility_of_element_located(self.avatar_locator))
         title_name = self.get_element_attribute(self.avatar_locator, "title")
         logger.info(f"获得登录后的名称为：{title_name}")
         return title_name

@@ -13,6 +13,6 @@ class_info:
   class_num: "SD3SJH"
 
 log_conf:
-  name: "automation_ketangpai_test"
+  name: "AUTOMATION_KETANGPAI"
   level: "INFO"
-  formatter: "time:%(asctime)s--%(levelname)s:%(name)s:%(message)s--%(filename)s---%(lineno)s"
+  formatter: "%(asctime)s-%(levelname)s:%(name)s-%(filename)s-%(created)s -%(lineno)s:::%(message)s"

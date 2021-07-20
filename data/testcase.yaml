@@ -1,0 +1,32 @@
+data_list_success:
+  -
+   usr: looker53@sina.com
+   pwd: admin123456
+   expected: yuze
+
+data_list_wrong:
+  -
+    usr: ""
+    pwd: admin123456
+    expected:
+      - 账号不能为空
+  -
+    usr: looker53@sina.com
+    pwd: ""
+    expected:
+      - 密码不能为空
+  -
+    usr: username
+    pwd: admin123456
+    expected:
+     - 用户名或密码无效
+  -
+    usr: looker53@sina.com
+    pwd: 12345
+    expected:
+     - 密码有效长度是6到30个字符
+  -
+    usr: looker53@sina.com
+    pwd: 1234567890123456789012345678901
+    expected:
+     - 密码有效长度是6到30个字符
