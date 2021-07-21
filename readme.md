@@ -13,6 +13,7 @@
 - Selenium
 - Pytest
 - PageObject
+- DDT
 
 
   
