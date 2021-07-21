@@ -1,32 +1,38 @@
 data_list_success:
-  -
-   usr: looker53@sina.com
-   pwd: admin123456
-   expected: yuze
+    -
+      case: 登录-冒烟测试
+      usr: leekchloe@icloud.com
+      pwd: admin123456
+      expected: chloe
 
 data_list_wrong:
   -
+    case: 登录-账号为空
     usr: ""
     pwd: admin123456
     expected:
       - 账号不能为空
   -
-    usr: looker53@sina.com
+    case: 登录-密码为空
+    usr: leekchloe@icloud.com
     pwd: ""
     expected:
       - 密码不能为空
   -
+    case: 登录-用户不存在
     usr: username
     pwd: admin123456
     expected:
      - 用户名或密码无效
   -
-    usr: looker53@sina.com
+    case: 登录-5位密码
+    usr: leekchloe@icloud.com
     pwd: 12345
     expected:
      - 密码有效长度是6到30个字符
   -
-    usr: looker53@sina.com
+    case: 登录-31位密码
+    usr: leekchloe@icloud.com
     pwd: 1234567890123456789012345678901
     expected:
      - 密码有效长度是6到30个字符

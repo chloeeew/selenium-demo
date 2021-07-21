@@ -7,7 +7,6 @@ Contact:403505960@qq.com
 """
 
 from selenium.webdriver.common.by import By
-from selenium import webdriver
 from common.basepage import BasePage
 from common import yaml_handler
 from common.logger_handler import logger
@@ -26,10 +25,15 @@ class LoginPage(BasePage):
     6、输入框全部清空
     7、获取错误信息
     """
+    # url地址
     url = host_url + "/User/login"
+    # 登录-登录按钮
     locator_login_confirm_button = (By.XPATH, "//div[contains(@class,'pt-login')]//a[@class='btn-btn']")
+    # 登录-输入框错误提示
     locator_error_tips = (By.CLASS_NAME, "error-tips")
+    # 登录-用户名输入框
     locator_username_field = (By.NAME, "account")
+    # 登录-密码输入框
     locator_pwd_field = (By.NAME, "pass")
 
     def get_into_login_url(self):
@@ -65,14 +69,3 @@ class LoginPage(BasePage):
 
 
 
-if __name__ == "__main__":
-    driver = webdriver.Chrome()
-
-    bp = LoginPage(driver)
-    bp.goto("https://v4.ketangpai.com/User/login.html")
-    driver.maximize_window()
-    bp.set_usr_and_password("looker53@sina.com","admin123456")
-    bp.click_login_confirm()
-    import time
-    time.sleep(12)
-    driver.quit()

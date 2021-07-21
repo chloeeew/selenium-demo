@@ -12,6 +12,19 @@ import time
 import pytest
 
 
+def pytest_collection_modifyitems(items):
+    for item in items:
+        # 改写item的编码集
+        item.name = item.name.encode('utf-8').decode('unicode-escape')
+        item._nodeid = item.nodeid.encode('utf-8').decode('unicode-escape')
+        # 批量给test_foo_*加上标签
+        if 'foo' in item.name:
+            item.add_marker(pytest.mark.foo)
+        elif 'last' in item.name:
+            item.add_marker(pytest.mark.last)
+
+
+
 @pytest.fixture()
 def get_driver():
     """

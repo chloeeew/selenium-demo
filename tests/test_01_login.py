@@ -25,7 +25,8 @@ from common.yaml_handler import yaml_testcase
 class TestLogin:
 
     @allure.title("冒烟测试-登录成功")
-    @pytest.mark.parametrize("yaml_data", yaml_testcase.get('data_list_success'))
+    @pytest.mark.parametrize("yaml_data", yaml_testcase.get('data_list_success'),
+                             ids=(i.get('case') for i in yaml_testcase.get('data_list_success')))
     def test_login_success(self, yaml_data,get_driver):
         """测试登录成功的场景（冒烟）
         1、打开浏览器
@@ -52,15 +53,19 @@ class TestLogin:
         time.sleep(2)
         home_page = HomePage(driver)
 
-        # COMPARE
+        # assert
         actual = home_page.get_usr_name()
-        logger.info(f"实际结果为：{actual},预期结果为{yaml_data['expected']}")
-        assert actual == yaml_data['expected']
+        try:
+            assert actual == yaml_data['expected']
+        except AssertionError:
+            logger.error(f"实际结果为：{actual},预期结果为{yaml_data['expected']}")
+            raise AssertionError
 
 
 
     @allure.title("异常登录测试用例")
-    @pytest.mark.parametrize("yaml_data", yaml_testcase.get('data_list_wrong'))
+    @pytest.mark.parametrize("yaml_data", yaml_testcase.get('data_list_wrong'),
+                             ids=(i.get('case') for i in yaml_testcase.get('data_list_wrong')))
     def test_login_usr_empty(self, get_driver, yaml_data):
         """测试用户名为空
         1、访问登录页面
@@ -75,8 +80,13 @@ class TestLogin:
 
         # COMPARE
         actual = login_page.get_error_tips()
+
         for i, el in enumerate(actual):
-            assert el.text == yaml_data.get('expected')[i]
+            try:
+                assert el.text == yaml_data.get('expected')[i]
+            except AssertionError:
+                logger.error(f"断言失败，{el.text}与{ yaml_data.get('expected')[i]}不相等，请检查值或顺序")
+                raise AssertionError
 
 
 

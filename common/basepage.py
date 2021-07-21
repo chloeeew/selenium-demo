@@ -4,6 +4,7 @@
 # @Email   :403505960@qq.com
 # @File    :.py
 # @Software:PyCharm
+
 from selenium import webdriver
 from selenium.common.exceptions import *
 from selenium.webdriver.support.wait import WebDriverWait
@@ -71,6 +72,7 @@ class BasePage:
             else:
                 self.driver.execute_script("arguments[0].click({force: true})", ele_target)
 
+
     def scroll_and_click(self,locator: tuple,force=False):
         """滚动到可视的位置，并点击"""
         try:
@@ -85,6 +87,7 @@ class BasePage:
             else:
                 self.driver.execute_script("arguments[0].click({force: true})", ele_target)
         return self
+
 
     def switch_to_the_frame(self,locator:tuple):
         """
@@ -139,7 +142,6 @@ class BasePage:
         try:
             wait = WebDriverWait(self.driver, 10, poll_frequency=0.2)
             elements = wait.until(expected_conditions.visibility_of_element_located(locator))
-            # elements = self.driver.find_elements(*locator)
         except TimeoutException as e:
             logger.error(f"找不到该元素，请检查定位{locator}是否能正确定位：{e}")
             return None
@@ -147,7 +149,6 @@ class BasePage:
             att_txt = elements.get_attribute(attr)
             logger.info(f"{locator}找到了{attr}属性的值，值为：{att_txt}")
             return att_txt
-        # return self.driver.find_element(*locator).get_attribute(attr)
 
 
 
@@ -166,17 +167,7 @@ class BasePage:
 
 
 
-if __name__ == "__main__":
-    driver = webdriver.Chrome()
 
-    bp = BasePage(driver)
-    bp.goto("https://v4.ketangpai.com/User/login.html")
-    driver.maximize_window()
-    bp.send_text(('name','account'),"looker53@sina.com")
-    bp.send_text(('name', 'pass'), "admin123456")
-    import time
-    time.sleep(12)
-    driver.quit()
 
 
 

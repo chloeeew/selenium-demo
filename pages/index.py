@@ -19,9 +19,13 @@ class IndexPage(BasePage):
     2、点击进入注册页面
     3、关闭页面初始化弹窗
     """
+    # url地址
     url = host_url
+    # 首页弹窗
     locator_popup = (By.CLASS_NAME, 'layui-layer-content')
+    # 首页弹窗-关闭
     locator_popup_close = (By.XPATH, "//a[contains(@class,'layui-layer-close2')]")
+    # 登录按钮
     locator_login_button = (By.CLASS_NAME, "login")
 
     def __init__(self, driver):

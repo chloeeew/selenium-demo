@@ -27,5 +27,3 @@ yaml_testcase = read_yaml(path.testcase_yaml_path)
 
 
 
-if __name__ == '__main__':
-    print(yaml_testcase.get('data_list_success'))
