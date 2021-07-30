@@ -51,6 +51,8 @@ class TestHome:
             raise AssertionError
 
 
+
+
         # switch to teacher-homepage , assert the existence of the student in course-member-page
         home_page_teacher = HomePageTeacher(driver_teacher)
         home_page_teacher.click_into_class_by_num(class_num)
@@ -61,6 +63,9 @@ class TestHome:
         except AssertionError:
             logger.error(f"断言失败，学生不在老师的{class_num}课堂里，请检查")
             raise AssertionError
+        finally:
+            logger.info("清理数据，学生退出课堂")
+            home_page_student.quit_class_by_num(class_num,yaml_config["student_info"]["pwd"])
 
 
 

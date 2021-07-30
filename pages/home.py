@@ -90,15 +90,10 @@ class HomePageStudent(HomePage):
         logger.info(f"找到课程{class_num},点击进入课程")
         return self
 
-    def add_class(self, num,pwd, confirm=True):
+    def add_class(self, num, confirm=True):
         """点击加入课程
         confirtm为Ture时，即选择确定；为False时，即选择取消
         """
-        if self.check_class_by_num(num):
-            class_name = self.get_class_name_by_num(num)
-            logger.info(f"学生已存在课程号为{num}的课，退出课程中")
-            self.quit_class_by_name(class_name, pwd)
-
         self.click_element(self.add_class_btn_locator)
         self.send_text(self.add_class_input_locator,num)
         logger.info(f"学生添加课程号为{num}的课")
@@ -127,6 +122,14 @@ class HomePageStudent(HomePage):
         # 时间缓冲
         time.sleep(2)
         return self
+
+
+    def quit_class_by_num(self,num,pwd):
+        """根据课程号退出课程"""
+        if self.check_class_by_num(num):
+            class_name = self.get_class_name_by_num(num)
+            logger.info(f"学生已存在课程号为{num}的课，退出课程中")
+            self.quit_class_by_name(class_name, pwd)
 
 
 
