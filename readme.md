@@ -9,7 +9,7 @@
 
   In total of 9 testcases
   
-#### Framework or Pattern included
+#### Dependency Libs and Design Pattern
 - Selenium
 - Pytest
 - PageObject
