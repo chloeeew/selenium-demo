@@ -1,5 +1,5 @@
 # Introduction
-- This project selenium-ketangpai is main to build a basic framework demo of UI automation testing.
+- This project selenium-demo is main to build a basic framework demo of UI automation testing.
 - This project is aimed at automation test engineers and test development engineers
 
 #### Testcases included:
